@@ -249,7 +249,7 @@ class CustomersController extends AppController
     public function dashboardchart($id = null, $dateStart = null, $dateEnd = null, $exportFile = 0)
     {
             $text        = date('d \d\e M Y');
-            $subtitle   =   "Rango desde ".$dateStart." a ".$dateEnd;
+            $subtitle   =   "Fecha desde ".$dateStart." a ".$dateEnd;
             $itmes      = [];
             $series      = [];
             $dateCurrent = date("Y-m-d");

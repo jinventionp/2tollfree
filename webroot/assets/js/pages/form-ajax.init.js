@@ -377,9 +377,9 @@
 
                     $('#customersChart').on('change', function(event){
                         event.preventDefault();
-                        //const calendars = flatpickr('#interval-datepicker', {});
-                        //console.log(calendars._flatpickr);
-                        //console.log('fp ' + calendars.selectedDates());
+                        startDate = $('#dateStart').val();
+                        endDate = $('#dateEnd').val();
+                        loadChart(id, startDate, endDate);
                     });
 
 
