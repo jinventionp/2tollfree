@@ -284,7 +284,7 @@ class FileEngine extends CacheEngine
             }
 
             $path = $path->getRealPath() . DIRECTORY_SEPARATOR;
-            if (!in_array($path, $cleared)) {
+            if (!in_array($path, $cleared, true)) {
                 $this->_clearDirectory($path, $now, $threshold);
                 $cleared[] = $path;
             }
@@ -395,7 +395,10 @@ class FileEngine extends CacheEngine
         if (!$createKey && !$path->isFile()) {
             return false;
         }
-        if (empty($this->_File) || $this->_File->getBasename() !== $key) {
+        if (empty($this->_File) ||
+            $this->_File->getBasename() !== $key ||
+            $this->_File->valid() === false
+        ) {
             $exists = file_exists($path->getPathname());
             try {
                 $this->_File = $path->openFile('c+');

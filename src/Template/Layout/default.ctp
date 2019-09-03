@@ -31,6 +31,7 @@ $controller = $this->request->getParam('controller');
             <link href="<?=$base?>assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" /> 
             <link href="<?=$base?>assets/libs/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet" type="text/css" />
             <link href="<?=$base?>assets/libs/jquery-toast/jquery.toast.min.css" rel="stylesheet" type="text/css" />
+            <link href="<?=$base?>assets/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
         <?php// endif;?>       
 
         <!-- App css -->
@@ -216,6 +217,7 @@ $controller = $this->request->getParam('controller');
             <script src="<?=$base?>assets/libs/jquery-form/jquery.form.min.js"></script>
             <script src="<?=$base?>assets/libs/clockpicker/bootstrap-clockpicker.min.js"></script>
             <script src="<?=$base?>assets/libs/jquery-toast/jquery.toast.min.js"></script>
+            <script src="<?=$base?>assets/libs/dropzone/dropzone.min.js"></script>
             
             <!-- Init js-->
             <!--<script src="<?=$base?>assets/js/pages/form-advanced.init.js"></script> -->
@@ -227,13 +229,40 @@ $controller = $this->request->getParam('controller');
         <!-- App js -->
         <script src="<?=$base?>assets/js/app.min.js"></script>
         <script type="text/javascript">
+            var myDropzone = new Dropzone("div#myDropzone", {
+                url: "upload.php",
+                paramName: "file",
+                acceptedFiles: 'image/*',
+                maxFilesize: 2,
+                maxFiles: 3,
+                thumbnailWidth: 160,
+                thumbnailHeight: 160,
+                thumbnailMethod: 'contain',
+                previewTemplate: previewTemplate,
+                autoQueue: true,
+                previewsContainer: "#previews",
+                clickable: ".fileinput-button"
+            });
+            //var myDropzone = new Dropzone("div#myDropzone", { url: "/file/post"});
             /*$('#dash-range-datepicker').flatpickr({
                 mode: "range"
-            });*/
+            });
 
             $('[data-plugin="switchery"]').each(function (idx, obj) {
                 new Switchery($(this)[0], $(this).data());
             });
-        </script> 
+            */
+            /*Dropzone.autoDiscover = false;
+        $("div#myDropzone").dropzone({
+            url: 'upload.php', 
+            autoProcessQueue: false, 
+            uploadMultiple: true, 
+            parallelUploads: 5, 
+            maxFiles: 1, 
+            maxFilesize: 1, 
+            acceptedFiles: 'image/*', 
+            addRemoveLinks: true,
+        });*/
+        </script>
     </body>
 </html>

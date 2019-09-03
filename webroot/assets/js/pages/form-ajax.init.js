@@ -382,9 +382,6 @@
                         loadChart(id, startDate, endDate);
                     });
 
-
-
-
                 }else{
                     var listError = "<ul>", msgChart = "";
                     listError += "<li>No existe cliente asociado a su cuenta, para crear un cliente haga click " +

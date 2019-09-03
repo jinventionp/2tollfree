@@ -82,7 +82,7 @@ class CustomersController extends AppController
     public function add()
     {
         $customer = $this->Customers->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) {            
             $this->request->data['active'] = (empty($this->request->getData('active')))? 0 : 1;
             $this->request->data['sponsor'] = (empty($this->request->getData('sponsor')))? 0 : 1;
             $customer = $this->Customers->patchEntity($customer, $this->request->getData());

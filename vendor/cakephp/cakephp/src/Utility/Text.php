@@ -499,7 +499,13 @@ class Text
             'limit' => -1,
         ];
         $options += $defaults;
-        $html = $format = $ellipsis = $exact = $limit = null;
+
+        $html = $format = $limit = null;
+        /**
+         * @var bool $html
+         * @var string|array $format
+         * @var int $limit
+         */
         extract($options);
 
         if (is_array($phrase)) {
@@ -555,7 +561,7 @@ class Text
      *
      * ### Options:
      *
-     * - `ellipsis` Will be used as Beginning and prepended to the trimmed string
+     * - `ellipsis` Will be used as beginning and prepended to the trimmed string
      * - `exact` If false, $text will not be cut mid-word
      *
      * @param string $text String to truncate.
@@ -570,6 +576,10 @@ class Text
         ];
         $options += $default;
         $exact = $ellipsis = null;
+        /**
+         * @var string $ellipsis
+         * @var bool $exact
+         */
         extract($options);
 
         if (mb_strlen($text) <= $length) {
@@ -637,7 +647,7 @@ class Text
                         if (preg_match('/<[\w]+[^>]*>/', $tag[0])) {
                             array_unshift($openTags, $tag[2]);
                         } elseif (preg_match('/<\/([\w]+)[^>]*>/', $tag[0], $closeTag)) {
-                            $pos = array_search($closeTag[1], $openTags);
+                            $pos = array_search($closeTag[1], $openTags, true);
                             if ($pos !== false) {
                                 array_splice($openTags, $pos, 1);
                             }
@@ -1035,10 +1045,10 @@ class Text
         $size = strtoupper($size);
 
         $l = -2;
-        $i = array_search(substr($size, -2), ['KB', 'MB', 'GB', 'TB', 'PB']);
+        $i = array_search(substr($size, -2), ['KB', 'MB', 'GB', 'TB', 'PB'], true);
         if ($i === false) {
             $l = -1;
-            $i = array_search(substr($size, -1), ['K', 'M', 'G', 'T', 'P']);
+            $i = array_search(substr($size, -1), ['K', 'M', 'G', 'T', 'P'], true);
         }
         if ($i !== false) {
             $size = (float)substr($size, 0, $l);

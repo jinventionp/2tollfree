@@ -51,27 +51,39 @@
 
                     <div class="col-lg-4">
                         <div class="form-group mb-3 switchery-demo">
-                            <input id="active" name="active" type="checkbox" checked data-plugin="switchery" data-color="#9261c6" data-size="small"/>
+                            <input id="active" name="active" type="checkbox" data-plugin="switchery" data-color="#9261c6" data-size="small" checked="checkbox" />
                             <label>Activo</label>
                             <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
-            	<div class="form-group mb-0 text-right">
+                <div class="form-group mb-0 text-right">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">Guardar</button>
                     <button class="btn btn-secondary waves-effect m-l-5" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            	</div>
-				<?= $this->Form->end() ?>
-            </div> <!-- end card-body -->
+                </div>
+                <?= $this->Form->end() ?>
         </div> <!-- end card-->
     </div> <!-- end col -->
 </div>
 <!-- end row -->
+
 <script type="text/javascript">
      $(document).ready(function() {
         $('#dimensions').select2({
             placeholder: "Seleccione la Dimensión", 
             allowClear: true
         });
+
+        /*Dropzone.autoDiscover = false;
+        $("div#myDropzone").dropzone({
+            url: 'upload.php', 
+            autoProcessQueue: false, 
+            uploadMultiple: true, 
+            parallelUploads: 5, 
+            maxFiles: 1, 
+            maxFilesize: 1, 
+            acceptedFiles: 'image/*', 
+            addRemoveLinks: true,
+        });*/
     });
 </script>

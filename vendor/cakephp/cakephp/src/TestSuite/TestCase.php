@@ -197,21 +197,22 @@ abstract class TestCase extends BaseTestCase
      * Useful to test how plugins being loaded/not loaded interact with other
      * elements in CakePHP or applications.
      *
-     * @param array $plugins list of Plugins to load
+     * @param array $plugins List of Plugins to load.
      * @return \Cake\Http\BaseApplication
      */
     public function loadPlugins(array $plugins = [])
     {
+        /** @var \Cake\Http\BaseApplication $app */
         $app = $this->getMockForAbstractClass(
             BaseApplication::class,
             ['']
         );
 
-        foreach ($plugins as $k => $opts) {
-            if (is_array($opts)) {
-                $app->addPlugin($k, $opts);
+        foreach ($plugins as $pluginName => $config) {
+            if (is_array($config)) {
+                $app->addPlugin($pluginName, $config);
             } else {
-                $app->addPlugin($opts);
+                $app->addPlugin($config);
             }
         }
         $app->pluginBootstrap();
@@ -491,7 +492,7 @@ abstract class TestCase extends BaseTestCase
                 $tags = (string)$tags;
             }
             $i++;
-            if (is_string($tags) && $tags{0} === '<') {
+            if (is_string($tags) && $tags[0] === '<') {
                 $tags = [substr($tags, 1) => []];
             } elseif (is_string($tags)) {
                 $tagsTrimmed = preg_replace('/\s+/m', '', $tags);

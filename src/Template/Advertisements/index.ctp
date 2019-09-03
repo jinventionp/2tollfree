@@ -8,7 +8,37 @@
     </div>
 </div>     
 <!-- end page title --> 
-
+<form action="/file-upload">
+  <div class="fallback">
+    <input name="file" type="file" multiple />
+  </div>
+  <div class="dropzone" id="myDropzone"></div>
+</form>
+<script type="text/javascript">
+    //Dropzone.autoDiscover = false;
+    /*var myDropzone = new Dropzone("div#myDropzone", {
+        url: 'upload.php', 
+        autoProcessQueue: false, 
+        uploadMultiple: true, 
+        parallelUploads: 5, 
+        maxFiles: 1, 
+        maxFilesize: 1, 
+        acceptedFiles: 'image/*', 
+        addRemoveLinks: true,
+        url: "upload.php",
+        paramName: "file",
+        acceptedFiles: 'image/*',
+        maxFilesize: 2,
+        maxFiles: 3,
+        thumbnailWidth: 160,
+        thumbnailHeight: 160,
+        thumbnailMethod: 'contain',
+        previewTemplate: previewTemplate,
+        autoQueue: true,
+        previewsContainer: "#previews",
+        clickable: ".fileinput-button"
+    });*/
+</script>
 <div class="row">
     <div class="col-12">
         <div class="card-box">

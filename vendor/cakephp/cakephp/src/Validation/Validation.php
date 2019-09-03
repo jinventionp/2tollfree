@@ -77,6 +77,11 @@ class Validation
     const COMPARE_LESS_OR_EQUAL = '<=';
 
     /**
+     * Datetime ISO8601 format
+     */
+    const DATETIME_ISO8601 = 'iso8601';
+
+    /**
      * Some complex patterns needed in multiple places
      *
      * @var array
@@ -563,6 +568,7 @@ class Validation
      *
      * @param string|\DateTimeInterface $check Value to check
      * @param string|array $dateFormat Format of the date part. See Validation::date() for more information.
+     *      Or `Validation::DATETIME_ISO8601` to valid an ISO8601 datetime value
      * @param string|null $regex Regex for the date part. If a custom regular expression is used this is the only validation that will occur.
      * @return bool True if the value is valid, false otherwise
      * @see \Cake\Validation\Validation::date()
@@ -576,19 +582,52 @@ class Validation
         if (is_object($check)) {
             return false;
         }
+        if ($dateFormat === static::DATETIME_ISO8601 && !static::iso8601($check)) {
+            return false;
+        }
+
         $valid = false;
         if (is_array($check)) {
             $check = static::_getDateString($check);
             $dateFormat = 'ymd';
         }
-        $parts = explode(' ', $check);
+        $parts = preg_split("/[\sT]+/", $check);
         if (!empty($parts) && count($parts) > 1) {
             $date = rtrim(array_shift($parts), ',');
             $time = implode(' ', $parts);
+            if ($dateFormat === static::DATETIME_ISO8601) {
+                $dateFormat = 'ymd';
+                $time = preg_split("/[TZ\-\+\.]/", $time);
+                $time = array_shift($time);
+            }
             $valid = static::date($date, $dateFormat, $regex) && static::time($time);
         }
 
         return $valid;
+    }
+
+    /**
+     * Validates an iso8601 datetime format
+     * ISO8601 recognize datetime like 2019 as a valid date. To validate and check date integrity, use @see \Cake\Validation\Validation::datetime()
+     *
+     * @param string|\DateTimeInterface $check Value to check
+     *
+     * @return bool True if the value is valid, false otherwise
+     *
+     * @see Regex credits: https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
+     */
+    public static function iso8601($check)
+    {
+        if ($check instanceof DateTimeInterface) {
+            return true;
+        }
+        if (is_object($check)) {
+            return false;
+        }
+
+        $regex = '/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/';
+
+        return static::_check($check, $regex);
     }
 
     /**
@@ -852,6 +891,10 @@ class Validation
      */
     public static function minLength($check, $min)
     {
+        if (!is_scalar($check)) {
+            return false;
+        }
+
         return mb_strlen($check) >= $min;
     }
 
@@ -864,6 +907,10 @@ class Validation
      */
     public static function maxLength($check, $max)
     {
+        if (!is_scalar($check)) {
+            return false;
+        }
+
         return mb_strlen($check) <= $max;
     }
 
@@ -876,6 +923,10 @@ class Validation
      */
     public static function minLengthBytes($check, $min)
     {
+        if (!is_scalar($check)) {
+            return false;
+        }
+
         return strlen($check) >= $min;
     }
 
@@ -888,6 +939,10 @@ class Validation
      */
     public static function maxLengthBytes($check, $max)
     {
+        if (!is_scalar($check)) {
+            return false;
+        }
+
         return strlen($check) <= $max;
     }
 
@@ -1186,7 +1241,7 @@ class Validation
             $mimeTypes[$key] = strtolower($val);
         }
 
-        return in_array($mime, $mimeTypes);
+        return in_array(strtolower($mime), $mimeTypes);
     }
 
     /**
@@ -1336,9 +1391,10 @@ class Validation
     /**
      * Validates the size of an uploaded image.
      *
-     * @param array|\Psr\Http\Message\UploadedFileInterface  $file The uploaded file data from PHP.
+     * @param array|\Psr\Http\Message\UploadedFileInterface $file The uploaded file data from PHP.
      * @param array $options Options to validate width and height.
      * @return bool
+     * @throws \InvalidArgumentException
      */
     public static function imageSize($file, $options)
     {
@@ -1346,9 +1402,11 @@ class Validation
             throw new InvalidArgumentException('Invalid image size validation parameters! Missing `width` and / or `height`.');
         }
 
-        $file = static::getFilename($file);
+        $filename = static::getFilename($file);
 
-        list($width, $height) = getimagesize($file);
+        list($width, $height) = getimagesize($filename);
+
+        $validHeight = $validWidth = null;
 
         if (isset($options['height'])) {
             $validHeight = self::comparison($height, $options['height'][0], $options['height'][1]);
@@ -1356,13 +1414,13 @@ class Validation
         if (isset($options['width'])) {
             $validWidth = self::comparison($width, $options['width'][0], $options['width'][1]);
         }
-        if (isset($validHeight, $validWidth)) {
+        if ($validHeight !== null && $validWidth !== null) {
             return ($validHeight && $validWidth);
         }
-        if (isset($validHeight)) {
+        if ($validHeight !== null) {
             return $validHeight;
         }
-        if (isset($validWidth)) {
+        if ($validWidth !== null) {
             return $validWidth;
         }
 
@@ -1533,7 +1591,7 @@ class Validation
      */
     public static function isInteger($value)
     {
-        if (!is_scalar($value) || is_float($value)) {
+        if (!is_numeric($value) || is_float($value)) {
             return false;
         }
         if (is_int($value)) {

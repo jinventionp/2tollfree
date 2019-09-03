@@ -55,7 +55,9 @@ class AdvertisementsController extends AppController
     public function add()
     {
         $advertisement = $this->Advertisements->newEntity();
-        if ($this->request->is('post')) {            
+        if ($this->request->is('post')) { 
+            //echo 'post';
+            //pr($this->request->getData());exit();
             $this->request->data['active'] = (empty($this->request->getData('active')))? 0 : 1; 
             $response["success"] = 0;
             $response["redirectUrl"] = "";
@@ -101,7 +103,8 @@ class AdvertisementsController extends AppController
         $advertisement = $this->Advertisements->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {            
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->request->data['active'] = (empty($this->request->getData('active')))? 0 : 1;      
             $response["success"] = 0;
             $response["redirectUrl"] = "";
             $response["modal"] = "";
