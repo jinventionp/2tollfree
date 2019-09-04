@@ -47,7 +47,7 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-
+        $this->loadComponent('Permissions');
         $this->loadComponent('Auth', [
             'loginAction' => [
                 'controller' => 'Users',
@@ -65,7 +65,7 @@ class AppController extends Controller
             'unauthorizedRedirect' => $this->referer(),
             'storage' => 'Session'
         ]);
-
+        
         //$this->Auth->allow();
 
         /*
@@ -77,6 +77,20 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event)
     {
+        parent::beforeFilter($event);
+
+        $role = $this->Auth->user('role');
+        $profiles = $this->Auth->user('role.profiles');
+        $params = $this->request->getAttribute('params');
+
+        $permissionsModule = $this->Permissions->getPermissionsModule($profiles, $params['controller']);
+        //pr($permissionsModule);
+        if(empty($permissionsModule)){
+            return $this->redirect(['controller' => 'Customers', 'action' => 'dashboard']);
+        }elseif($permissionsModule['_joinData']['see'] == 1){
+            $this->Auth->allow('index');
+        }
+
         $this->currentUser = $this->Auth->user();
         $this->set('currentUser', $this->currentUser);
     }

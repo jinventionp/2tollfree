@@ -134,9 +134,15 @@ class UsersTable extends Table
 
     public function findAuth(\Cake\ORM\Query $query, array $options)
     {
+        //['Users.id', 'Users.name', 'Users.email', 'Users.password', 'Users.phone', 'Users.role_id', 'Users.active', 'Roles.id', 'Roles.name']
         $query
-            ->select(['id', 'name', 'email', 'password', 'phone', 'role_id', 'active'])
-            //->contain(['Roles']) Not Work
+            ->select()
+            ->contain([
+                'Roles' => ['Profiles' => [
+                    'Modules'
+                    ]
+                ]
+            ])
             ->where(['Users.active' => 1]);
 
         return $query;

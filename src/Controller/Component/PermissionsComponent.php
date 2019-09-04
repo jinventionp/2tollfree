@@ -6,12 +6,12 @@ use Cake\Controller\Component;
 class PermissionsComponent extends Component {
 
     public function getPermissionsModule($profiles, $controller) {
-        $permissionModule = array();
+        $permissionModule = [];
         if (!empty($profiles)):
-            foreach ($profiles as $profile):
-                if (!empty($profile['Module'])):
-                    foreach ($profile['Module'] as $module):
-                        if ($module['controller_name'] == $controller):
+            foreach ($profiles as $profile): 
+                if (!empty($profile['modules'])): 
+                    foreach ($profile['modules'] as $module): 
+                        if (strtolower($module['name']) == strtolower($controller)):
                             $permissionModule = $module;
                             break;
                         endif;
@@ -19,7 +19,7 @@ class PermissionsComponent extends Component {
                 endif;
             endforeach;
         endif;
-        //pr($permissionModule);
+        
         return $permissionModule;
     }
     
