@@ -39,7 +39,7 @@ use Cake\I18n\Time;
                 ?></td>
                 <td class="text-center">
                     <?php $class = ($customer->active)? "fa-check-circle text-success" : "fa-times-circle text-danger" ;?>
-                    <a href="javascript:void(0)" id="changeStatus" data-url="<?=$this->Url->build(["controller" => "Customers", "action" => "changestatus", $customer->id])?>"><i class="fas <?=$class?>"></i></a>
+                    <a href="javascript:void(0)" id="changeStatus-<?=$customer->id?>" data-url="<?=$this->Url->build(["controller" => "Customers", "action" => "changestatus", $customer->id])?>"><i class="fas <?=$class?>"></i></a>
                 </td>
                 <td class="actions">
                     <a id="editRecord-<?=$customer->id?>" href="javascript:void(0)" data-url="<?=$this->Url->build(["controller" => "Customers", "action" => "edit", $customer->id])?>" data-title="<?=__('Edit Customer')?>" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Editar" class="action-icon"> <i class="fas fa-edit"></i></a>

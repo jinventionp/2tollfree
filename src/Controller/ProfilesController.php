@@ -49,20 +49,16 @@ class ProfilesController extends AppController
     {
         $profile = $this->Profiles->newEntity();
         if ($this->request->is('post')) {
-            //pr($this->request->getData());exit();
             $profile = $this->Profiles->patchEntity($profile, $this->request->getData());
-            $response["success"] = 0;
-            $response["redirectUrl"] = "";
             if(empty($profile->getErrors())){
                 if ($this->Profiles->save($profile)) {
-                    $response["success"] = 1;
-                    $response["message"] = __('The profile has been saved.');
-                    $response["redirectUrl"] = Router::url(['controller' => 'Profiles', 'action' => 'index']);
+                    $this->Flash->success(__('The profile has been saved.'));
+                    return $this->redirect(['action' => 'index']);
                 }else{
-                    $response["message"] = ['error' => ['custom' => __('The profile could not be saved. Please, try again.')]];
+                    $this->Flash->error(__('The profile could not be saved. Please, try again.'));
                 }
             }else{
-                $response["message"] = $customer->getErrors();
+                $this->Flash->error($customer->getErrors());
             }
             echo json_encode($response);
             $this->autoRender = false;
@@ -94,20 +90,16 @@ class ProfilesController extends AppController
             'contain' => ['Fields', 'Modules', 'Roles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            //pr($this->request->getData());exit();
             $profile = $this->Profiles->patchEntity($profile, $this->request->getData());
-            $response["success"] = 0;
-            $response["redirectUrl"] = "";
             if(empty($profile->getErrors())){
                 if ($this->Profiles->save($profile)) {
-                    $response["success"] = 1;
-                    $response["message"] = __('The profile has been saved.');
-                    $response["redirectUrl"] = Router::url(['controller' => 'Profiles', 'action' => 'index']);
+                    $this->Flash->success(__('The profile has been saved.'));
+                    return $this->redirect(['action' => 'index']);
                 }else{
-                    $response["message"] = ['error' => ['custom' => __('The profile could not be saved. Please, try again.')]];
+                    $this->Flash->error(__('The profile could not be saved. Please, try again.'));
                 }
             }else{
-                $response["message"] = $customer->getErrors();
+                $this->Flash->error($customer->getErrors());
             }
             echo json_encode($response);
             $this->autoRender = false;

@@ -7,13 +7,13 @@
         </div>
     </div>
 </div>     
-<!-- end page title --> 
+<!-- end page title 
 <form action="/file-upload">
   <div class="fallback">
     <input name="file" type="file" multiple />
   </div>
   <div class="dropzone" id="myDropzone"></div>
-</form>
+</form>--> 
 <script type="text/javascript">
     //Dropzone.autoDiscover = false;
     /*var myDropzone = new Dropzone("div#myDropzone", {

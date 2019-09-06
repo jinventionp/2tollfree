@@ -62,13 +62,13 @@ class ModulesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false)
+            ->allowEmptyString('name', null, false)
             ->add('name', 'unique', [
                 'rule' => 'validateUnique', 
                 'provider' => 'table', 
@@ -79,7 +79,7 @@ class ModulesTable extends Table
             ->scalar('label')
             ->maxLength('label', 200)
             ->requirePresence('label', 'create')
-            ->allowEmptyString('label', false);
+            ->allowEmptyString('label', null, false);
             
 
         $validator

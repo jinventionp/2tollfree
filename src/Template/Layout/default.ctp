@@ -229,7 +229,7 @@ $controller = $this->request->getParam('controller');
         <!-- App js -->
         <script src="<?=$base?>assets/js/app.min.js"></script>
         <script type="text/javascript">
-            var myDropzone = new Dropzone("div#myDropzone", {
+            /*var myDropzone = new Dropzone("div#myDropzone", {
                 url: "upload.php",
                 paramName: "file",
                 acceptedFiles: 'image/*',
@@ -242,7 +242,7 @@ $controller = $this->request->getParam('controller');
                 autoQueue: true,
                 previewsContainer: "#previews",
                 clickable: ".fileinput-button"
-            });
+            });*/
             //var myDropzone = new Dropzone("div#myDropzone", { url: "/file/post"});
             /*$('#dash-range-datepicker').flatpickr({
                 mode: "range"

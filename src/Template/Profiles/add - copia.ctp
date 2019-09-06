@@ -1,7 +1,3 @@
-<?php 
-//pr($modules->toArray())
-//pr($profile);
-?>
 <?php //pr($modules->toArray());?>
 <!-- start page title -->
 <div class="row">
@@ -54,31 +50,31 @@
                             <tr>
                                 <th>
                                     <div class="checkbox mb-2">
-                                        <input type="checkbox" id="modules" value="">
+                                        <input type="checkbox" id="modules" value="" checked="checked">
                                         <label class="custom-control-label" for="modules">Módulos</label>
                                     </div>
                                 </th>
                                 <th class="text-center">
                                     <div class="checkbox mb-2">
-                                        <input type="checkbox" id="see" value="">
+                                        <input type="checkbox" id="see" value="" checked="checked">
                                         <label class="custom-control-label" for="see">Ver</label>
                                     </div>
                                 </th>
                                 <th class="text-center">
                                     <div class="checkbox mb-2">
-                                        <input type="checkbox" id="new" value="">
+                                        <input type="checkbox" id="new" value="" checked="checked">
                                         <label class="custom-control-label" for="new">Crear</label>
                                     </div>
                                 </th>
                                 <th class="text-center">
                                     <div class="checkbox mb-2">
-                                        <input type="checkbox" id="edit" value="">
+                                        <input type="checkbox" id="edit" value="" checked="checked">
                                         <label class="custom-control-label" for="edit">Editar</label>
                                     </div>
                                 </th>
                                 <th class="text-center">
                                     <div class="checkbox mb-2">
-                                        <input type="checkbox" id="erase" value="">
+                                        <input type="checkbox" id="erase" value="" checked="checked">
                                         <label class="custom-control-label" for="erase">Borrar</label>
                                     </div>
                                 </th>
@@ -87,30 +83,16 @@
                         </thead>
                         <tbody>
                             <?php
-                            $i = 0; 
                             foreach ($modules as $module): 
-                                $seeCheck = $newCheck = $editCheck = $eraseCheck = "";
-                                $itemModule = [];
-                                foreach ($profile->modules as $selectedModule) {
-                                    if($module->id == $selectedModule->id){
-                                        $itemModule = $selectedModule;
-                                    }
-                                }
-                                if(!empty($itemModule)){
-                                    //pr($itemModule);
-                                    $seeCheck = ($itemModule->_joinData->see)? 'checked' : '';
-                                    $newCheck = ($itemModule->_joinData->new)? 'checked' : '';
-                                    $editCheck = ($itemModule->_joinData->edit)? 'checked' : '';
-                                    $eraseCheck = ($itemModule->_joinData->erase)? 'checked' : '';
-                                    //echo $seeCheck;
-                                }
+                                $key = $module->id;
+                                $value = $module->name;
                                 ?>
                             <tr>
                                 <th style="background-color: #f1f5f7;">
                                     <div class="checkbox mb-2">
                                         <!--<input type="checkbox" class="custom-control-input" id="module-<?=$module->id?>" name="profiles[_ids][<?=$i?>]" value="<?=$module->id?>">-->
-                                        <?= $this->Form->control("modules.".$i.".id", ["label" => false, "type" => "checkbox", "value" => $module->id, "data-item" => $i, "templates" => ['inputContainer' => '{{content}}']]);?>
-                                        <label class="custom-control-label" for="modules-<?=$i?>-id">
+                                        <?= $this->Form->control("modules.".$key.".id", ["label" => false, "type" => "checkbox", "value" => $key, "data-item" => $key, "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
+                                        <label class="custom-control-label" for="modules-<?=$key?>-id">
                                         <?= (empty($module->label))? $module->name : $module->label;?>
                                         </label>
                                     </div>
@@ -118,42 +100,77 @@
                                 <td class="text-center">
                                     <div class="checkbox mb-2">
                                         <!--<input type="checkbox" class="custom-control-input" id="view-1" name="">-->
-                                        <?= $this->Form->control("modules.".$i."._joinData.see", ["label" => false, "type" => "checkbox", "data-item" => $i, "templates" => ['inputContainer' => '{{content}}'], $seeCheck]);?>
-                                        <label class="custom-control-label" for="modules-<?=$i?>-joindata-see">&nbsp;</label>
+                                        <?= $this->Form->control("modules.".$key."._joinData.see", ["label" => false, "type" => "checkbox", "data-item" => $key, "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
+                                        <label class="custom-control-label" for="modules-<?=$key?>-joindata-see">&nbsp;</label>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="checkbox mb-2">
                                         <!--<input type="checkbox" class="custom-control-input" id="create-2">-->
-                                        <?= $this->Form->control("modules.".$i."._joinData.new", ["label" => false, "type" => "checkbox", "data-item" => $i, "templates" => ['inputContainer' => '{{content}}'], $newCheck]);?>
-                                        <label class="custom-control-label" for="modules-<?=$i?>-joindata-new">&nbsp;</label>
+                                        <?= $this->Form->control("modules.".$key."._joinData.new", ["label" => false, "type" => "checkbox", "data-item" => $key, "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
+                                        <label class="custom-control-label" for="modules-<?=$key?>-joindata-new">&nbsp;</label>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="checkbox mb-2">
                                         <!--<input type="checkbox" class="custom-control-input" id="edit-1">-->
-                                        <?= $this->Form->control("modules.".$i."._joinData.edit", ["label" => false, "type" => "checkbox", "data-item" => $i, "templates" => ['inputContainer' => '{{content}}'], $editCheck]);?>
-                                        <label class="custom-control-label" for="modules-<?=$i?>-joindata-edit">&nbsp;</label>
+                                        <?= $this->Form->control("modules.".$key."._joinData.edit", ["label" => false, "type" => "checkbox", "data-item" => $key, "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
+                                        <label class="custom-control-label" for="modules-<?=$key?>-joindata-edit">&nbsp;</label>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="checkbox mb-2">
                                         <!--<input type="checkbox" class="custom-control-input" id="delete-2">-->
-                                        <?= $this->Form->control("modules.".$i."._joinData.erase", ["label" => false, "type" => "checkbox", "data-item" => $i, "templates" => [   'inputContainer' => '{{content}}'], $eraseCheck]);?>
-                                        <label class="custom-control-label" for="modules-<?=$i?>-joindata-erase">&nbsp;</label>
+                                        <?= $this->Form->control("modules.".$key."._joinData.erase", ["label" => false, "type" => "checkbox", "data-item" => $key, "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
+                                        <label class="custom-control-label" for="modules-<?=$key?>-joindata-erase">&nbsp;</label>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <!--<a href="#cardCollpase<?=$i?>" class="btn btn-light btn-xs waves-effect waves-light" id="btn-archive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="cardCollpase<?=$i?>">Archive</a>-->
+                                    <a href="#cardCollpase<?=$key?>" class="btn btn-light btn-xs waves-effect waves-light" id="btn-archive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="cardCollpase<?=$key?>">Campos</a>
                                 </td>
                             </tr>
-                            <tr id="cardCollpase<?=$i?>" class="collapse pt-3">
-                                <!--<td colspan="7">Collapse</td>-->
+                            <tr id="cardCollpase<?=$key?>" class="collapse pt-3">
+                                <td colspan="7">
+                                    <table class="table table-centered table-sm">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th colspan="4">
+                                                    <div class="checkbox mb-2">
+                                                        <input type="checkbox" id="fields<?=$key?>" value="" checked="checked">
+                                                        <label class="custom-control-label" for="fields<?=$key?>">Seleccione para Escritura / Deseleccione para solo Lectura</label>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i=1;
+                                            foreach ($module->fields as $field) :
+                                                $keyfield = $field->id;
+                                                if($i == 1)
+                                                    echo '<tr>';
+                                            ?>
+                                                <td> 
+                                                    <?= $this->Form->hidden("fields.".$keyfield.".id", ["value" => $keyfield]);?>
+                                                    <div class="checkbox mb-2">
+                                                        <!--<input type="checkbox" class="custom-control-input" id="edit-1">-->
+                                                        <?= $this->Form->control("fields.".$keyfield."._joinData.writing", ["label" => false, "type" => "checkbox", "data-item" => $keyfield , "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
+                                                        <label class="custom-control-label" for="fields-<?=$keyfield?>-joindata-readonly"><?= (empty($field->label))? $field->name : $field->label;?></label>
+                                                    </div> 
+                                                </td>
+                                            <?php 
+                                                if($i == 4):
+                                                    echo '</tr>';
+                                                    $i = 0;
+                                                endif;
+                                                $i++;
+                                            endforeach;
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
-                            <?php 
-                            $i ++;
-                            endforeach;
-                            ?>
+                            <?php endforeach;?>
                         </tbody>
                     </table>
                 </div>

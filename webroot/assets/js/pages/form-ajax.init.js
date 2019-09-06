@@ -246,8 +246,7 @@
 
     //initializing Iframe Ads
     FormAjax.prototype.initChartReports = function() {
-        $(document).ready(function() {
-            var moduleIndex = $('#moduleIndex').val();
+        $(document).ready(function() {            
             var urls = null;
             if ($('#urls').length) {
                 urls = JSON.parse($('#urls').val());
@@ -383,6 +382,7 @@
                     });
 
                 }else{
+                    var moduleIndex = $('#moduleIndex').val();
                     var listError = "<ul>", msgChart = "";
                     listError += "<li>No existe cliente asociado a su cuenta, para crear un cliente haga click " +
                                 "<a href='" + moduleIndex + "'><b>aquí</b></a></li>";
@@ -414,7 +414,7 @@
     },
 
     //initializing Ajax Request
-    FormAjax.prototype.initAjaxRequest = function() {
+    FormAjax.prototype.initAjaxRequest = function() { console.log('initAjaxRequest');
         $(document).ready(function() {
             var urls = null;
             if ($('#urls').length) {
@@ -434,22 +434,24 @@
                     //Loading Associations
                     loadAssoCustomers($(this).val());
                 });
-
-                //Change Status Records
-                $('#changeStatus').on('click', function(event) {
-                    event.preventDefault();
-                    /* Act on the event */
-                    $(this).html('<img src="./assets/images/loading.gif" />');
-                    var url = $(this).attr('data-url');
-                    $.get(url, function( data ) {
-                        if(data.status == 1){
-                            $('#changeStatus').html('<i class="fas fa-check-circle text-success"></i>');
-                        }else{
-                            $('#changeStatus').html('<i class="fas fa-times-circle text-danger"></i>');
-                        }
-                    }, "json" );
-                });
+                
             }
+
+            //Change Status Records
+            $('#contentList').on('click', 'a[id ^= "changeStatus-"]', function(event) {
+                event.preventDefault();
+                /* Act on the event */   
+                var obj = $(this);            
+                obj.html('<img src="./assets/images/loading.gif" />');
+                var url = obj.attr('data-url');
+                $.get(url, function( data ) {
+                    if(data.status == 1){
+                        obj.html('<i class="fas fa-check-circle text-success"></i>');
+                    }else{console.log(0);
+                        obj.html('<i class="fas fa-times-circle text-danger"></i>');
+                    }
+                }, "json" );
+            });
 
             // Search Customers Code and Chart
             /*$("#customersCode, #customersChart").select2({

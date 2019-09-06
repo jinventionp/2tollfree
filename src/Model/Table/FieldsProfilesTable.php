@@ -61,7 +61,7 @@ class FieldsProfilesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->boolean('visible')

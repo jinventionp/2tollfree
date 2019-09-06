@@ -25,7 +25,7 @@
                 <td><?= h($advertisement->dimensions) ?> px</td>
                 <td class="text-center">
                     <?php $class = ($advertisement->active)? "fa-check-circle text-success" : "fa-times-circle text-danger" ;?>
-                    <a href="javascript:void(0)" id="changeStatus" data-url="<?=$this->Url->build(["controller" => "Advertisements", "action" => "changestatus", $advertisement->id])?>"><i class="fas <?=$class?>"></i></a>
+                    <a href="javascript:void(0)" id="changeStatus-<?=$advertisement->id?>" data-url="<?=$this->Url->build(["controller" => "Advertisements", "action" => "changestatus", $advertisement->id])?>" ><i class="fas <?=$class?>"></i></a>
                 </td>
                 <td><?= h($advertisement->url_youtube) ?></td>
                 <td class="actions">

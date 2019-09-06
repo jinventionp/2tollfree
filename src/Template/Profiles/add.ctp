@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-body">
             	<div id="msgFormActions"></div>                
-                <?= $this->Form->create($profile, ["id" => "formActions"]) ?>
+                <?= $this->Form->create($profile) ?>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group mb-3">
@@ -126,12 +126,12 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#cardCollpase<?=$key?>" class="btn btn-light btn-xs waves-effect waves-light" id="btn-archive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="cardCollpase<?=$key?>">Campos</a>
+                                    <!--<a href="#cardCollpase<?=$key?>" class="btn btn-light btn-xs waves-effect waves-light" id="btn-archive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="cardCollpase<?=$key?>">Campos</a>-->
                                 </td>
                             </tr>
                             <tr id="cardCollpase<?=$key?>" class="collapse pt-3">
                                 <td colspan="7">
-                                    <table class="table table-centered table-sm">
+                                    <!--<table class="table table-centered table-sm">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th colspan="4">
@@ -153,7 +153,6 @@
                                                 <td> 
                                                     <?= $this->Form->hidden("fields.".$keyfield.".id", ["value" => $keyfield]);?>
                                                     <div class="checkbox mb-2">
-                                                        <!--<input type="checkbox" class="custom-control-input" id="edit-1">-->
                                                         <?= $this->Form->control("fields.".$keyfield."._joinData.writing", ["label" => false, "type" => "checkbox", "data-item" => $keyfield , "templates" => ['inputContainer' => '{{content}}'], "checked" => "checked"]);?>
                                                         <label class="custom-control-label" for="fields-<?=$keyfield?>-joindata-readonly"><?= (empty($field->label))? $field->name : $field->label;?></label>
                                                     </div> 
@@ -167,7 +166,7 @@
                                             endforeach;
                                             ?>
                                         </tbody>
-                                    </table>
+                                    </table>-->
                                 </td>
                             </tr>
                             <?php endforeach;?>

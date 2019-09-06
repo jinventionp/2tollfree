@@ -86,7 +86,7 @@ class AppController extends Controller
         $permissionsModule = $this->Permissions->getPermissionsModule($profiles, $params['controller']);
         //pr($permissionsModule);
         if(empty($permissionsModule)){
-            return $this->redirect(['controller' => 'Customers', 'action' => 'dashboard']);
+            //return $this->redirect(['controller' => 'Customers', 'action' => 'dashboard']);
         }elseif($permissionsModule['_joinData']['see'] == 1){
             $this->Auth->allow('index');
         }

@@ -144,11 +144,11 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <!--<a href="#cardCollpase<?=$i?>" class="btn btn-light btn-xs waves-effect waves-light" id="btn-archive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="cardCollpase<?=$i?>">Archive</a>-->
+                                    <a href="#cardCollpase<?=$i?>" class="btn btn-light btn-xs waves-effect waves-light" id="btn-archive" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="cardCollpase<?=$i?>">Archive</a>
                                 </td>
                             </tr>
                             <tr id="cardCollpase<?=$i?>" class="collapse pt-3">
-                                <!--<td colspan="7">Collapse</td>-->
+                                <td colspan="7">Collapse</td>
                             </tr>
                             <?php 
                             $i ++;

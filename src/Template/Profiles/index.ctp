@@ -42,6 +42,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <?= $this->Flash->render() ?>
                 <div id="contentList"></div>
             </div> <!-- end card-body-->
         </div> <!-- end card-->

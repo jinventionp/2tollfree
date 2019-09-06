@@ -1,5 +1,6 @@
 <?php $base = $this->request->getAttribute('webroot'); ?>
-<script src="<?=$base?>assets/js/pages/form-ajax-actions.init.js"></script>
+<!--<script src="<?=$base?>assets/js/pages/form-ajax.init.js"></script>
+<script src="<?=$base?>assets/js/pages/form-ajax-actions.init.js"></script>-->
 <div class="table-responsive">
     <table class="table table-centered table-striped table-sm" id="products-datatable">
         <thead>
@@ -23,7 +24,7 @@
                 <td><?= h($user->phone) ?></td>
                 <td class="text-center">
                     <?php $class = ($user->active)? "fa-check-circle text-success" : "fa-times-circle text-danger" ;?>
-                    <a href="javascript:void(0)" id="changeStatus" data-url="<?=$this->Url->build(["controller" => "Users", "action" => "changestatus", $user->id])?>"><i class="fas <?=$class?>"></i></a>
+                    <a href="javascript:void(0)" id="changeStatus-<?=$user->id?>" data-url="<?=$this->Url->build(["controller" => "Users", "action" => "changestatus", $user->id])?>"><i class="fas <?=$class?>"></i></a>
                 </td>
                 <td class="actions">
                     <a id="editRecord-<?=$user->id?>" href="javascript:void(0)" data-url="<?=$this->Url->build(["controller" => "Users", "action" => "edit", $user->id])?>" data-title="<?=__('Edit User')?>" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Editar" class="action-icon"> <i class="fas fa-edit"></i></a>
