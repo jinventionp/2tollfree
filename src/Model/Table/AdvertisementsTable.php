@@ -5,6 +5,11 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\Event;
+use Cake\Datasource\EntityInterface;
+use ArrayObject;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 /**
  * Images Model
@@ -54,8 +59,9 @@ class AdvertisementsTable extends Table
                     'size' => 'image_size',
                     'type' => 'image_type'
                 ],
-                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    return strtolower($data['name']);
+                'nameCallback' => function ($table, $entity, $data, $field, $settings) {                    
+                    $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
+                    return '2tf-' . md5(uniqid(rand(), true)) . "." . $ext;
                 },
                 'transformer' =>  function ($table, $entity, $data, $field, $settings) {
                     $extension = pathinfo($data['name'], PATHINFO_EXTENSION);
@@ -81,7 +87,7 @@ class AdvertisementsTable extends Table
                 },
                 'deleteCallback' => function ($path, $entity, $field, $settings) {
                     // When deleting the entity, both the original and the thumbnail will be removed
-                    // when keepFilesOnDelete is set to false
+                    // when keepFilesOnDelete is set to false                    
                     return [
                         $path . $entity->{$field},
                         $path . 'thumbnail-' . $entity->{$field}
@@ -327,5 +333,20 @@ class AdvertisementsTable extends Table
         $rules->add($rules->existsIn(['customer_id'], 'Customers'));
 
         return $rules;
+    }
+
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {        
+        if(!$entity->isNew()){
+            if($entity->image != $entity->getOriginal('image')){
+                $dir = new Folder(WWW_ROOT . 'files/Advertisements/image/');
+                $files = $dir->find('.*' . $entity->getOriginal('image'), true);
+                foreach ($files as $file) {
+                    $file = new File($dir->pwd() . DS . $file);
+                    $file->delete(); // I am deleting this file
+                    $file->close(); // Be sure to close the file when you're done
+                }
+            }
+        }
     }
 }
