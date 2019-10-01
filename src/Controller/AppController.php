@@ -66,6 +66,7 @@ class AppController extends Controller
             'storage' => 'Session'
         ]);
         
+        $this->Auth->allow(['logout']);
         //$this->Auth->allow();
 
         /*

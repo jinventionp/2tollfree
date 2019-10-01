@@ -55,7 +55,7 @@ class RolesTable extends Table
             'foreignKey' => 'parent_id'
         ]);
         $this->hasMany('Users', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'role_id'
         ]);
         $this->belongsToMany('Profiles', [
             'foreignKey' => 'role_id',
@@ -74,13 +74,13 @@ class RolesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false);
+            ->allowEmptyString('name', 'El campo Nombre es Obligatorio');
 
         $validator
             ->scalar('description')

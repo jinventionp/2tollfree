@@ -18,8 +18,8 @@
                 <td><?= h($profile->description) ?></td>
                 <td><?= h($profile->created) ?></td>
                 <td>
-                    <a href="<?=$this->Url->build(["controller" => "Profiles", "action" => "edit", $profile->id])?>" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                    <a href="<?=$this->Url->build(["controller" => "Profiles", "action" => "edit", $profile->id])?>" class="action-icon"> <i class="fas fa-edit"></i></a>
+                    <a href="javascript:void(0);" class="action-icon"> <i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>
             <?php endforeach; ?>

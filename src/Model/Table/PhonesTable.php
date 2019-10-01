@@ -57,13 +57,13 @@ class PhonesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 100)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false, 'El campo Teléfono es Obligatorio')
+            ->allowEmptyString('name', 'El campo Teléfono es Obligatorio')
             ->add('name', 'unique', [
                 'rule' => ['validateUnique'],
                 'provider' => 'table', 

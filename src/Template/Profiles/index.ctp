@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="text-lg-right mt-3 mt-lg-0">
-                        <a href="<?=$this->Url->build(["controller" => "Profiles", "action" => "add"])?>" class="btn btn-primary waves-effect waves-light" data-animation="fadein" data-overlaycolor="#38414a"><i class="mdi mdi-plus-circle mr-1"></i> <?= __('New Profile')?></a>
+                        <a href="<?=$this->Url->build(["controller" => "Profiles", "action" => "add"])?>" class="btn btn-success waves-effect waves-light" data-animation="fadein" data-overlaycolor="#38414a"><i class="mdi mdi-plus-circle mr-1"></i> <?= __('New Profile')?></a>
                     </div>
                 </div><!-- end col-->
             </div> <!-- end row -->

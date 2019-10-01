@@ -7,7 +7,7 @@
     FormElements.prototype.initSelect2 = function() {
         // Select2
         $(document).ready(function() {
-            //$('[data-toggle="select2"]').select2();
+            $('[data-toggle="select2"]').select2();
             if($('#customersChart').length){
                 $("#customersChart").select2({placeholder: 'Seleccionar Cliente'});
             }
@@ -24,6 +24,11 @@
     FormElements.prototype.initSwitchery = function() {
         $('[data-plugin="switchery"]').each(function (idx, obj) {
             new Switchery($(this)[0], $(this).data());
+            if($(this).is(':checked')) {
+                $(this).val(1);
+            } else {
+                $(this).val(0);
+            }
         });
 
         $('input[type=checkbox]').on('change', function() {            

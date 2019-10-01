@@ -63,13 +63,13 @@ class FieldsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 200)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false)
+            ->allowEmptyString('name', 'El campo Nombre es Obligatorio')
             ->add('name', 'unique', [
                 'rule' => ['validateUnique', ['scope' => ['module_id']]],
                 'provider' => 'table', 

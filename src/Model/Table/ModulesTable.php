@@ -68,7 +68,7 @@ class ModulesTable extends Table
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', null, false)
+            ->allowEmptyString('name', 'El campo Nombre es Obligatorio')
             ->add('name', 'unique', [
                 'rule' => 'validateUnique', 
                 'provider' => 'table', 

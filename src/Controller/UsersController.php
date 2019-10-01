@@ -87,6 +87,10 @@ class UsersController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if(empty($this->request->getData('password'))){
+                unset($this->request->data['password']);
+                unset($this->request->data['confirm_password']);
+            }
             $user->active = (empty($this->request->getData('active')))? 0 : 1; 
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $response["success"] = 0;

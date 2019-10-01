@@ -110,19 +110,19 @@ class AdvertisementsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false);
+            ->allowEmptyString('name', null, false);
 
         $validator
             //->scalar('image')
             //->maxLength('image', 255)
             ->allowEmptyFile('image')
-            ->allowEmptyString('image', true);
+            ->allowEmptyString('image', null, true);
         
         $validator
             ->scalar('image_dir')
@@ -150,16 +150,16 @@ class AdvertisementsTable extends Table
         $validator
             ->scalar('url_youtube')
             ->maxLength('url_youtube', 255)
-            ->allowEmptyString('url_youtube');        
+            ->allowEmptyString('url_youtube');
+
+        $validator->setProvider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
 
         return $validator;
     }
 
     public function validationDimensions200x200(Validator $validator)
     {
-        $validator = $this->validationDefault($validator);
-
-        $validator->provider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
+        $validator = $this->validationDefault($validator);        
 
         $validator->add('image', 'fileAboveMinHeight', [
             'rule'     => ['isAboveMinHeight', 200],
@@ -193,8 +193,6 @@ class AdvertisementsTable extends Table
     {
         $validator = $this->validationDefault($validator);
 
-        $validator->provider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
-
         $validator->add('image', 'fileAboveMinHeight', [
             'rule'     => ['isAboveMinHeight', 250],
             'message'  => 'Esta imagen debe ser por lo menos 250px alto',
@@ -225,8 +223,6 @@ class AdvertisementsTable extends Table
     public function validationDimensions300x250(Validator $validator)
     {
         $validator = $this->validationDefault($validator);
-
-        $validator->provider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
 
         $validator->add('image', 'fileAboveMinHeight', [
             'rule'     => ['isAboveMinHeight', 250],
@@ -259,8 +255,6 @@ class AdvertisementsTable extends Table
     {
         $validator = $this->validationDefault($validator);
 
-        $validator->provider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
-
         $validator->add('image', 'fileAboveMinHeight', [
             'rule'     => ['isAboveMinHeight', 600],
             'message'  => 'Esta imagen debe ser por lo menos 600px alto',
@@ -291,8 +285,6 @@ class AdvertisementsTable extends Table
     public function validationDimensions336x280(Validator $validator)
     {
         $validator = $this->validationDefault($validator);
-
-        $validator->provider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
 
         $validator->add('image', 'fileAboveMinHeight', [
             'rule'     => ['isAboveMinHeight', 280],

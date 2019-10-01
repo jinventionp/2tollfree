@@ -33,7 +33,7 @@
                 <div class="col-lg-4">
                     <div class="text-lg-right mt-3 mt-lg-0">                        
                         <!-- Responsive modal -->
-                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#modalAdd" data-url="<?=$this->Url->build(["controller" => "Roles", "action" => "add"])?>" data-title="<?= __('New Rol')?>" id="openModalAdd"><i class="mdi mdi-plus-circle mr-1"></i><?= __('New Rol')?></button>
+                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#modalAdd" data-url="<?=$this->Url->build(["controller" => "Roles", "action" => "add"])?>" data-title="<?= __('New Role')?>" id="openModalAdd"><i class="mdi mdi-plus-circle mr-1"></i><?= __('New Role')?></button>
                     </div>
                 </div><!-- end col-->
             </div> <!-- end row -->

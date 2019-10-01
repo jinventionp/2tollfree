@@ -414,7 +414,7 @@
     },
 
     //initializing Ajax Request
-    FormAjax.prototype.initAjaxRequest = function() { console.log('initAjaxRequest');
+    FormAjax.prototype.initAjaxRequest = function() {
         $(document).ready(function() {
             var urls = null;
             if ($('#urls').length) {
@@ -430,7 +430,7 @@
                     loadAssoCustomers(customer_id);
                 }
                 //Select relations customer_id 
-                $('#customersCode').on('change', function (e) {console.log('Change');
+                $('#customersCode').on('change', function (e) {
                     //Loading Associations
                     loadAssoCustomers($(this).val());
                 });

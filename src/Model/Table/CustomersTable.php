@@ -69,13 +69,13 @@ class CustomersTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false, 'El campo Nombre es Obligatorio')
+            ->allowEmptyString('name', 'El campo Nombre es Obligatorio')
             ->add('name', 'unique', [
                 'rule' => ['validateUnique'],
                 'provider' => 'table', 
@@ -89,7 +89,7 @@ class CustomersTable extends Table
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->allowEmptyString('email', false)
+            ->allowEmptyString('email', null, false)
             ->add('email', 'unique', [
                 'rule' => ['validateUnique'],
                 'provider' => 'table', 

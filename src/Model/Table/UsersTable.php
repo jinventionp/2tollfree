@@ -66,12 +66,12 @@ class UsersTable extends Table
             ->scalar('name')
             ->maxLength('name', 100)
             ->requirePresence('name', 'create')
-            ->allowEmptyString('name', false, 'El campo Nombre es Obligatorio');
+            ->allowEmptyString('name', 'El campo Nombre es Obligatorio');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->allowEmptyString('email', false)
+            ->allowEmptyString('email', null, false)
             ->add('email', 'unique', [
                 'rule' => 'validateUnique', 
                 'provider' => 'table', 
@@ -86,11 +86,11 @@ class UsersTable extends Table
             ->scalar('password')
             ->maxLength('password', 150)
             ->requirePresence('password', 'create')
-            ->allowEmptyString('password', 'update', 'El campo Contraseña es Obligatorio');
+            ->allowEmptyString('password', 'El campo Contraseña es Obligatorio', 'update');
 
         $validator
             ->requirePresence('confirm_password', 'create')
-            ->allowEmptyString('confirm_password', 'update', 'El campo Confirmar contraseña es Obligatorio')
+            ->allowEmptyString('confirm_password', 'El campo Confirmar contraseña es Obligatorio', 'update')
             ->add('confirm_password', 'custom', ['rule' => function ($value, $context) {
                 if (isset($context['data']['password']) && $value == $context['data']['password']) {
                     return true;
